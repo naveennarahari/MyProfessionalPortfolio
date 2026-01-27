@@ -137,6 +137,22 @@ export const projects = [
   },
   {
     id: 2,
+    name: "Backend Performance Optimization",
+    client: "Societe Generale",
+    domain: "Investment Banking – Global Forex Markets",
+    duration: "Mar 2019 – Oct 2021",
+    description: "Critical performance optimization initiative for investment banking platform experiencing major slowness in backend functions.",
+    impact: [
+      "Improved transaction processing speed from ~6 sec to ~2 sec (67% reduction)",
+      "Enhanced system throughput and user experience significantly",
+      "Implemented code optimization and architectural improvements",
+      "Maintained operational resilience through monitoring improvements"
+    ],
+    technologies: ["C#", ".NET", "Grafana", "Kibana", "Jenkins", "Microservices"],
+    methodology: "Agile"
+  },
+  {
+    id: 3,
     name: "X-One CBO Historization",
     client: "Societe Generale",
     domain: "Investment Banking – Global Forex Markets",
@@ -152,19 +168,51 @@ export const projects = [
     methodology: "Agile"
   },
   {
-    id: 3,
-    name: "Union Bank Automation Framework",
-    client: "Union Bank of California",
-    domain: "Banking and Financial Services",
-    duration: "Sep 2012 – Aug 2015",
-    description: "Comprehensive automation framework for retail, commercial & wholesale banking applications including internet and online banking.",
+    id: 4,
+    name: "Mission-Critical Trading Platform Development",
+    client: "Societe Generale",
+    domain: "Investment Banking – Multi-Asset Trading",
+    duration: "Apr 2018 – Mar 2019",
+    description: "Developed core components for mission-critical multi-asset investment banking platform processing over 1M daily transactions under strict SWIFT regulatory compliance.",
+    impact: [
+      "Successfully processed 1M+ daily transactions reliably",
+      "Maintained SWIFT regulatory compliance standards",
+      "Translated complex business requirements into production-ready code",
+      "Delivered iterative features within agile delivery cycles"
+    ],
+    technologies: ["C#", ".NET", "SWIFT", "JIRA", "Message-Oriented Middleware"],
+    methodology: "Agile"
+  },
+  {
+    id: 5,
+    name: "Automated Testing Infrastructure",
+    client: "Societe Generale",
+    domain: "Investment Banking Technology",
+    duration: "Aug 2016 – Mar 2018",
+    description: "Architected and deployed comprehensive automated testing infrastructure for critical trading platform, driving technology modernization and cost savings.",
     impact: [
       "Eliminated 100+ manual test execution cycles",
       "Reduced regression testing time by 70%",
-      "Achieved ~3K€ annual license cost savings",
-      "Migrated 100+ legacy scripts to open-source framework"
+      "Achieved ~3K€ in annual license cost savings",
+      "Migrated 100+ legacy automation scripts to open-source Java Selenium framework"
     ],
-    technologies: ["UFT", "QTP", "Selenium", "Java", "AMDOCS", "RUMBA"],
+    technologies: ["UFT", "QTP", "Selenium", "Java", "Test Automation"],
+    methodology: "Agile"
+  },
+  {
+    id: 6,
+    name: "Banking QA Operations & Modernization",
+    client: "IGATE (U.S. Retail Banking)",
+    domain: "Banking and Financial Services",
+    duration: "May 2012 – Aug 2015",
+    description: "Led quality assurance operations for 200+ application test suite portfolio, driving automation modernization and operational excellence for U.S. retail banking customers.",
+    impact: [
+      "Owned 200+ application test suite portfolio with weekly regression cycles",
+      "Migrated entire UFT-based testing infrastructure to Selenium within 12 months",
+      "Automated critical daily monitoring processes for systematic verification",
+      "Improved cost efficiency, technical flexibility, and team productivity"
+    ],
+    technologies: ["Selenium", "UFT", "QTP", "Test Automation", "Banking Applications"],
     methodology: "Agile"
   }
 ];
