@@ -4,8 +4,11 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
-import { Mail, Phone, Linkedin, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone, Linkedin, MapPin, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { personalInfo } from '../mock';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -29,15 +32,34 @@ const Contact = () => {
     setIsSubmitting(true);
     setStatus({ type: '', message: '' });
 
-    // Mock submission - will be replaced with actual API call
-    setTimeout(() => {
+    try {
+      const response = await axios.post(`${BACKEND_URL}/api/contact`, formData);
+      
+      if (response.data.success) {
+        setStatus({
+          type: 'success',
+          message: response.data.message
+        });
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      }
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      
+      let errorMessage = 'Failed to send message. Please try again later.';
+      
+      if (error.response?.data?.detail) {
+        errorMessage = error.response.data.detail;
+      } else if (error.message) {
+        errorMessage = `Network error: ${error.message}`;
+      }
+      
       setStatus({
-        type: 'success',
-        message: 'Thank you for your message! I will get back to you soon.'
+        type: 'error',
+        message: errorMessage
       });
-      setFormData({ name: '', email: '', subject: '', message: '' });
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   return (
