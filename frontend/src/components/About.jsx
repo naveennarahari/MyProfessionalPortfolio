@@ -58,17 +58,23 @@ const About = () => {
           </h3>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="text-5xl mb-4">🎯</div>
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8 text-blue-600" />
+              </div>
               <h4 className="font-semibold text-slate-900 mb-2">Strategic Leadership</h4>
               <p className="text-slate-600">Leading cross-functional teams to deliver mission-critical platforms</p>
             </div>
             <div className="text-center">
-              <div className="text-5xl mb-4">🔒</div>
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="h-8 w-8 text-blue-600" />
+              </div>
               <h4 className="font-semibold text-slate-900 mb-2">Regulatory Ready</h4>
               <p className="text-slate-600">Building audit-ready systems that withstand scrutiny</p>
             </div>
             <div className="text-center">
-              <div className="text-5xl mb-4">⚡</div>
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Activity className="h-8 w-8 text-blue-600" />
+              </div>
               <h4 className="font-semibold text-slate-900 mb-2">Technical Excellence</h4>
               <p className="text-slate-600">Architecting scalable solutions for complex financial systems</p>
             </div>
