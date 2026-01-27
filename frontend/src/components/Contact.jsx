@@ -220,7 +220,11 @@ const Contact = () => {
                 {status.message && (
                   <div className={`p-4 rounded-lg ${status.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
                     <div className="flex items-center">
-                      {status.type === 'success' && <CheckCircle2 className="h-5 w-5 mr-2" />}
+                      {status.type === 'success' ? (
+                        <CheckCircle2 className="h-5 w-5 mr-2 flex-shrink-0" />
+                      ) : (
+                        <AlertCircle className="h-5 w-5 mr-2 flex-shrink-0" />
+                      )}
                       <span>{status.message}</span>
                     </div>
                   </div>
