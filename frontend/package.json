@@ -7,7 +7,7 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test"
-  }
+  },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-accordion": "^1.2.8",
