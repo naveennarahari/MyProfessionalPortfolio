@@ -1,22 +1,14 @@
-name: Deploy Portfolio to GitHub Pages
+name: Deploy to Netlify
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,21 +22,21 @@ jobs:
         working-directory: frontend
         run: yarn install --frozen-lockfile
 
-      - name: Build
+      - name: Build for Netlify
         working-directory: frontend
         env:
+          # No PUBLIC_URL needed — Netlify serves from root /
           REACT_APP_FORMSPREE_ID: ${{ secrets.FORMSPREE_ID }}
           CI: false
         run: yarn build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3
         with:
-          path: frontend/build
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          publish-dir: './frontend/build'
+          production-branch: main
+          production-deploy: true
+          deploy-message: "Deploy from GitHub Actions — commit ${{ github.sha }}"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
