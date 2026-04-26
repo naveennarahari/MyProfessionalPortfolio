@@ -1,136 +1,184 @@
-# Naveen Narahari — Professional Portfolio
+# MyProfessionalPortfolio
 
-Personal portfolio website for **Naveen Narahari**, Engineering Manager and Architecture Leader with 14+ years of experience in Investment Banking Technology.
+Professional portfolio application for Narahari Naveen, focused on engineering leadership, investment banking technology, and large-scale platform delivery.
 
-[![Deploy to GitHub Pages](https://github.com/naveennarahari/MyProfessionalPortfolio/actions/workflows/deploy-gh-pages.yml/badge.svg)](https://github.com/naveennarahari/MyProfessionalPortfolio/actions/workflows/deploy-gh-pages.yml)
-[![Deploy to Netlify](https://github.com/naveennarahari/MyProfessionalPortfolio/actions/workflows/deploy-netlify.yml/badge.svg)](https://github.com/naveennarahari/MyProfessionalPortfolio/actions/workflows/deploy-netlify.yml)
+This repository contains a React frontend for the portfolio experience and a FastAPI backend that supports contact message storage and API testing.
 
-## Live URLs
+## Highlights
 
-| Platform | URL |
-|---|---|
-| Netlify (primary) | https://naveenprofessionalportfolio.netlify.app |
-| GitHub Pages (backup) | https://naveennarahari.github.io/MyProfessionalPortfolio |
-
----
-
-## Sections
-
-- **Hero** — Role positioning, profile photo, and resume download
-- **About** — Career summary and key metrics (14+ years, 17+ team members, 1M+ daily transactions, 99.9% availability)
-- **Experience** — Timeline of roles at Societe Generale, NTT DATA, and IGATE with expandable highlights
-- **Projects** — SWIFT, CLS, performance optimization, and enterprise platform projects
-- **Skills** — Leadership, technical, and domain expertise
-- **Contact** — Email, phone, LinkedIn, X (Twitter), and contact form via Formspree
-
----
+- Personal brand site with hero, about, experience, projects, skills, and contact sections
+- Leadership-focused content tailored to engineering management and architecture roles
+- Downloadable resume and profile image support through the frontend public assets
+- Contact form UX in the frontend with Formspree-based submission
+- FastAPI backend with MongoDB models and contact endpoints for a self-hosted contact workflow
+- GitHub Pages deployment workflow for the frontend
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Framework | React 19 + Create React App (CRACO) |
-| Styling | Tailwind CSS |
-| Components | Radix UI primitives + shadcn/ui |
-| Icons | Lucide React |
-| Contact form | Formspree (no backend required) |
-| CI/CD | GitHub Actions |
-| Hosting | Netlify + GitHub Pages (parallel) |
+### Frontend
 
----
+- React 19
+- Create React App with CRACO
+- Tailwind CSS
+- Radix UI primitives
+- Lucide React icons
+
+### Backend
+
+- FastAPI
+- Motor and MongoDB
+- Pydantic
+- Python dotenv
+
+## Architecture
+
+The repository is split into two main applications:
+
+- `frontend/`: the portfolio website UI
+- `backend/`: the API service and contact-message persistence layer
+
+The frontend currently uses Formspree for contact form submission in `frontend/src/components/Contact.jsx`.
+
+The backend includes contact endpoints in `backend/routes/contact.py` plus models in `backend/models/contact.py`. Those APIs are useful for local development or a future full migration away from Formspree, but they are not the active frontend submission path today.
 
 ## Repository Structure
 
-```
+```text
 MyProfessionalPortfolio/
-├── .github/
-│   └── workflows/
-│       ├── deploy-gh-pages.yml   # GitHub Pages deployment
-│       └── deploy-netlify.yml    # Netlify deployment
-├── frontend/
-│   ├── public/
-│   │   ├── index.html
-│   │   ├── 404.html              # SPA routing fix for GitHub Pages
-│   │   ├── profile.jpg           # Your profile photo (add manually)
-│   │   └── resume.pdf            # Your resume (add manually)
-│   ├── src/
-│   │   ├── components/           # React components
-│   │   ├── mock.js               # All portfolio content lives here
-│   │   └── App.js
-│   └── package.json
-├── netlify.toml                  # Netlify build config + SPA redirects
-└── README.md
+|-- backend/
+|   |-- models/
+|   |-- routes/
+|   `-- server.py
+|-- frontend/
+|   |-- public/
+|   |-- src/
+|   `-- package.json
+|-- tests/
+|-- .github/workflows/deploy.yml
+|-- backend_test.py
+`-- contracts.md
 ```
 
----
+## Frontend Features
 
-## Local Development
+- Hero section with role positioning, summary message, and resume download
+- About section with profile summary and key career metrics
+- Experience timeline with expandable role highlights
+- Project showcase covering banking and platform initiatives
+- Skills grouped across leadership, technical, and domain areas
+- Contact section with direct email, phone, LinkedIn, X, and message form
+
+The frontend content is currently driven by static mock data in `frontend/src/mock.js`.
+
+## Backend API
+
+The backend exposes the following routes under `/api`:
+
+- `GET /api/`: health-style hello response
+- `POST /api/status`: create a sample status record
+- `GET /api/status`: retrieve status records
+- `POST /api/contact`: create a contact message
+- `GET /api/contact`: retrieve contact messages
+
+The contact API validates:
+
+- `name`: 2 to 100 characters
+- `email`: valid email format
+- `subject`: 5 to 200 characters
+- `message`: 10 to 2000 characters
+
+## Local Setup
 
 ### Prerequisites
 
-- Node.js 20+
+- Node.js 20+ recommended
 - Yarn 1.x
+- Python 3.10+
+- MongoDB database
 
-### Run locally
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/naveennarahari/MyProfessionalPortfolio.git
-cd MyProfessionalPortfolio/frontend
+cd MyProfessionalPortfolio
+```
+
+### 2. Run the frontend
+
+```bash
+cd frontend
 yarn install
 yarn start
 ```
 
-App runs at `http://localhost:3000`.
+The frontend runs on `http://localhost:3000`.
 
----
+### 3. Run the backend
 
-## Updating Portfolio Content
+Create `backend/.env` with:
 
-All content is in one file — **`frontend/src/mock.js`**. Edit it to update:
+```env
+MONGO_URL=mongodb://localhost:27017
+DB_NAME=myprofessionalportfolio
+CORS_ORIGINS=http://localhost:3000
+```
 
-- Personal info, tagline, social links
-- Work experience and highlights
-- Projects and impact
-- Skills
+Then start the API:
 
-No backend, no database, no API keys needed for content updates.
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn server:app --reload --host 0.0.0.0 --port 8000
+```
 
----
+The backend runs on `http://localhost:8000`, and the API root is available under `http://localhost:8000/api`.
+
+## Environment Variables
+
+### Frontend
+
+- `REACT_APP_FORMSPREE_ID`: Formspree form ID used by the contact form
+
+### Backend
+
+- `MONGO_URL`: MongoDB connection string
+- `DB_NAME`: database name
+- `CORS_ORIGINS`: comma-separated allowed origins
 
 ## Deployment
 
-Both deployments trigger automatically on every push to `main`.
+The repository includes a GitHub Actions workflow at `.github/workflows/deploy.yml` that:
 
-| Workflow | Platform | Build config |
-|---|---|---|
-| `deploy-gh-pages.yml` | GitHub Pages | `PUBLIC_URL=/MyProfessionalPortfolio` |
-| `deploy-netlify.yml` | Netlify | `PUBLIC_URL=` (root) |
+- installs frontend dependencies
+- builds the React app
+- deploys the frontend build output to GitHub Pages
 
-### Required GitHub Secrets
+The workflow expects the repository secret `FORMSPREE_ID` for the production contact form.
 
-Go to **Settings → Secrets and variables → Actions** and add:
+## Testing
 
-| Secret | Description |
-|---|---|
-| `FORMSPREE_ID` | Form ID from [formspree.io](https://formspree.io) |
-| `NETLIFY_AUTH_TOKEN` | Personal access token from Netlify user settings |
-| `NETLIFY_SITE_ID` | Site ID from Netlify site configuration |
+The repository includes `backend_test.py`, which exercises the contact API contract end to end using the backend URL configured in the frontend environment.
 
-### Adding your profile photo and resume
+Before running it, make sure:
 
-Drop these two files into `frontend/public/` and push:
+- the backend is running
+- the frontend environment contains `REACT_APP_BACKEND_URL`
 
-```
-frontend/public/profile.jpg   ← your photo
-frontend/public/resume.pdf    ← your CV
+Example:
+
+```bash
+python backend_test.py
 ```
 
-They will be automatically picked up by both deployments.
+## Notes
 
----
+- `frontend/README.md` still contains the default Create React App instructions.
+- `contracts.md` documents the backend contact integration contract.
+- The top-level portfolio data is intentionally easy to update in `frontend/src/mock.js`.
 
-## Connect
+## Future Improvements
 
-- LinkedIn: [linkedin.com/in/narahari-naveen](https://www.linkedin.com/in/narahari-naveen)
-- X (Twitter): [x.com/naveennarahari](https://x.com/naveennarahari)
-- Email: naraharinaveenqa@gmail.com
+- Wire the frontend contact form directly to the FastAPI backend
+- Add automated frontend tests
+- Add backend test execution to CI
+- Replace static mock content with a CMS or structured content source if needed
