@@ -54,3 +54,4 @@ venv/
 *.pack
 *.deb
 *.dylib
+*.bat
