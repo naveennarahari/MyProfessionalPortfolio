@@ -3,6 +3,9 @@ import { Button } from './ui/button';
 import { ArrowRight, Download } from 'lucide-react';
 import { personalInfo } from '../mock';
 
+// Works on both Netlify (PUBLIC_URL="") and GitHub Pages (PUBLIC_URL="/MyProfessionalPortfolio")
+const PUBLIC_URL = process.env.PUBLIC_URL || '';
+
 const Hero = () => {
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -10,15 +13,21 @@ const Hero = () => {
 
   const handleDownloadResume = () => {
     const link = document.createElement('a');
-    link.href = personalInfo.resumeUrl || '/resume.pdf';
+    link.href = `${PUBLIC_URL}/resume.pdf`;
     link.download = 'Naveen_Narahari_Resume.pdf';
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   };
+
+  const profileImageUrl = `${PUBLIC_URL}/profile.jpg`;
+  const initials = personalInfo.name.split(' ').map(n => n[0]).join('');
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 px-6 py-20">
       <div className="max-w-6xl w-full">
         <div className="grid md:grid-cols-2 gap-12 items-center">
+
           {/* Left Content */}
           <div className="space-y-8">
             <div className="space-y-4">
@@ -59,27 +68,24 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Content - Profile Image */}
+          {/* Right Content — Profile Image */}
           <div className="flex justify-center">
             <div className="relative">
-              <div className="w-80 h-80 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 shadow-2xl flex items-center justify-center overflow-hidden">
-                {personalInfo.profileImage ? (
-                  <img
-                    src={personalInfo.profileImage}
-                    alt={personalInfo.name}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      // Fall back to initials if image fails to load
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
-                    }}
-                  />
-                ) : null}
+              <div className="w-80 h-80 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 shadow-2xl overflow-hidden flex items-center justify-center">
+                <img
+                  src={profileImageUrl}
+                  alt={personalInfo.name}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    document.getElementById('hero-initials').style.display = 'flex';
+                  }}
+                />
                 <div
-                  className="text-white text-8xl font-bold w-full h-full items-center justify-center"
-                  style={{ display: personalInfo.profileImage ? 'none' : 'flex' }}
+                  id="hero-initials"
+                  className="absolute inset-0 hidden items-center justify-center text-white text-8xl font-bold"
                 >
-                  {personalInfo.name.split(' ').map(n => n[0]).join('')}
+                  {initials}
                 </div>
               </div>
               {/* Decorative elements */}
@@ -87,6 +93,7 @@ const Hero = () => {
               <div className="absolute -z-20 -top-8 -left-8 w-80 h-80 bg-slate-200 rounded-2xl"></div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
