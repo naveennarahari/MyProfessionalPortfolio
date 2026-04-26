@@ -37,14 +37,13 @@ const Header = () => {
     }`}>
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <div 
+          {/* Logo — "Naveen NARAHARI" */}
+          <div
             className="text-2xl font-bold cursor-pointer"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            <span className={`${
-              isScrolled ? 'text-slate-900' : 'text-slate-900'
-            }`}>{personalInfo.name.split(' ')[0]}</span>
+            <span className="text-slate-900">Naveen </span>
+            <span className="text-slate-900 uppercase">Narahari</span>
             <span className="text-blue-600">.</span>
           </div>
 
@@ -54,14 +53,12 @@ const Header = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`font-medium transition-colors duration-200 ${
-                  isScrolled ? 'text-slate-700 hover:text-blue-600' : 'text-slate-700 hover:text-blue-600'
-                }`}
+                className="font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200"
               >
                 {item.label}
               </button>
             ))}
-            <Button 
+            <Button
               onClick={() => scrollToSection('contact')}
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
             >
@@ -94,7 +91,7 @@ const Header = () => {
                 {item.label}
               </button>
             ))}
-            <Button 
+            <Button
               onClick={() => scrollToSection('contact')}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg mt-2"
             >

@@ -1,6 +1,6 @@
 import React from 'react';
 import { personalInfo } from '../mock';
-import { Linkedin, Mail, Phone } from 'lucide-react';
+import { Linkedin, Mail, Phone, Twitter } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -21,35 +21,17 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              <li>
-                <a href="#about" className="text-slate-400 hover:text-white transition-colors duration-200 text-sm">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#experience" className="text-slate-400 hover:text-white transition-colors duration-200 text-sm">
-                  Experience
-                </a>
-              </li>
-              <li>
-                <a href="#projects" className="text-slate-400 hover:text-white transition-colors duration-200 text-sm">
-                  Projects
-                </a>
-              </li>
-              <li>
-                <a href="#skills" className="text-slate-400 hover:text-white transition-colors duration-200 text-sm">
-                  Skills
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="text-slate-400 hover:text-white transition-colors duration-200 text-sm">
-                  Contact
-                </a>
-              </li>
+              {['about', 'experience', 'projects', 'skills', 'contact'].map((id) => (
+                <li key={id}>
+                  <a href={`#${id}`} className="text-slate-400 hover:text-white transition-colors duration-200 text-sm capitalize">
+                    {id}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Connect */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Connect</h4>
             <div className="space-y-3">
@@ -64,6 +46,10 @@ const Footer = () => {
               <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center text-slate-400 hover:text-white transition-colors duration-200 text-sm">
                 <Linkedin className="h-4 w-4 mr-2" />
                 <span>LinkedIn</span>
+              </a>
+              <a href={personalInfo.twitter} target="_blank" rel="noopener noreferrer" className="flex items-center text-slate-400 hover:text-white transition-colors duration-200 text-sm">
+                <Twitter className="h-4 w-4 mr-2" />
+                <span>X (Twitter)</span>
               </a>
             </div>
           </div>
