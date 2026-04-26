@@ -4,16 +4,19 @@ export const personalInfo = {
   name: "Narahari Naveen",
   title: "Engineering Manager | Architecture Leader",
   tagline: "Building Scalable & Compliant Platforms in Investment Banking Tech",
-  yearsOfExperience: "13+",
+  yearsOfExperience: "14+",
   location: "Greater Bengaluru Area",
   email: "naraharinaveenqa@gmail.com",
   phone: "+91-8970322333",
   linkedin: "https://www.linkedin.com/in/narahari-naveen",
-  summary: "Engineering Manager and backend architecture leader with over 13 years of experience in banking and financial services technology. Expert in building resilient, auditable, and regulatory-ready platforms that transform tech debt into competitive advantage. Leading cross-functional teams to deliver mission-critical investment banking applications across the Forex trade lifecycle."
+  twitter: "https://x.com/naveennarahari",
+  profileImage: "/profile.jpg",   // drop your photo as frontend/public/profile.jpg
+  resumeUrl: "/resume.pdf",       // drop your CV as frontend/public/resume.pdf
+  summary: "Engineering Manager and backend architecture leader with over 14 years of experience in banking and financial services technology. Expert in building resilient, auditable, and regulatory-ready platforms that transform tech debt into competitive advantage. Leading cross-functional teams to deliver mission-critical investment banking applications across the Forex trade lifecycle."
 };
 
 export const keyMetrics = [
-  { label: "Years Experience", value: "13+", icon: "briefcase" },
+  { label: "Years Experience", value: "14+", icon: "briefcase" },
   { label: "Team Members Led", value: "17+", icon: "users" },
   { label: "Daily Transactions", value: "1M+", icon: "activity" },
   { label: "System Availability", value: "99.9%", icon: "shield" }
@@ -251,26 +254,10 @@ export const skills = {
 };
 
 export const certifications = [
-  {
-    name: "ISTQB Foundation Level",
-    issuer: "ISTQB",
-    year: "2013"
-  },
-  {
-    name: "ITIL Foundation Level",
-    issuer: "ITIL",
-    year: "2013"
-  },
-  {
-    name: "C# Basic Certification",
-    issuer: "HackerRank",
-    year: "2024"
-  },
-  {
-    name: "ChatGPT and LangChain: The Complete Developer's Masterclass",
-    issuer: "Online Course",
-    year: "2024"
-  }
+  { name: "ISTQB Foundation Level", issuer: "ISTQB", year: "2013" },
+  { name: "ITIL Foundation Level", issuer: "ITIL", year: "2013" },
+  { name: "C# Basic Certification", issuer: "HackerRank", year: "2024" },
+  { name: "ChatGPT and LangChain: The Complete Developer's Masterclass", issuer: "Online Course", year: "2024" }
 ];
 
 export const education = {

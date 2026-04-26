@@ -44,9 +44,9 @@ const Experience = () => {
               {/* Timeline dot */}
               <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-blue-600 rounded-full border-4 border-white shadow-lg"></div>
 
-              {/* Content */}
-              <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pr-12 md:ml-auto md:text-right' : 'md:pl-12 md:text-left'}`}>
-                <Card className="p-6 hover:shadow-xl transition-all duration-300 border-2 border-slate-100 rounded-xl bg-white">
+              {/* Content — always left-align text inside the card regardless of timeline side */}
+              <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pr-12 md:ml-auto' : 'md:pl-12'}`}>
+                <Card className="p-6 hover:shadow-xl transition-all duration-300 border-2 border-slate-100 rounded-xl bg-white text-left">
                   {/* Header */}
                   <div className="mb-4">
                     <div className="flex items-start justify-between mb-2">
@@ -55,17 +55,17 @@ const Experience = () => {
                           {exp.role}
                         </h3>
                         <div className="flex items-center text-slate-600 mb-2">
-                          <Building2 className="h-4 w-4 mr-2" />
+                          <Building2 className="h-4 w-4 mr-2 flex-shrink-0" />
                           <span className="font-semibold">{exp.company}</span>
                         </div>
                         <div className="flex items-center text-slate-500 text-sm">
-                          <Calendar className="h-4 w-4 mr-2" />
+                          <Calendar className="h-4 w-4 mr-2 flex-shrink-0" />
                           <span>{exp.duration}</span>
                           <span className="mx-2">•</span>
                           <span>{exp.period}</span>
                         </div>
                       </div>
-                      <Badge className={`${getTypeColor(exp.type)} ml-4`}>
+                      <Badge className={`${getTypeColor(exp.type)} ml-4 flex-shrink-0`}>
                         {exp.type}
                       </Badge>
                     </div>
@@ -82,8 +82,8 @@ const Experience = () => {
                       <h4 className="font-semibold text-slate-900 text-sm uppercase tracking-wide">Key Highlights:</h4>
                       <ul className="space-y-2">
                         {exp.highlights.map((highlight, idx) => (
-                          <li key={idx} className="flex items-start text-sm text-slate-600">
-                            <span className="text-blue-600 mr-2 mt-1">▸</span>
+                          <li key={idx} className="flex items-start text-sm text-slate-600 text-left">
+                            <span className="text-blue-600 mr-2 mt-1 flex-shrink-0">▸</span>
                             <span>{highlight}</span>
                           </li>
                         ))}
@@ -107,15 +107,9 @@ const Experience = () => {
                     className="mt-4 flex items-center text-blue-600 hover:text-blue-700 font-semibold text-sm transition-colors duration-200"
                   >
                     {expandedId === exp.id ? (
-                      <>
-                        <ChevronUp className="h-4 w-4 mr-1" />
-                        Show Less
-                      </>
+                      <><ChevronUp className="h-4 w-4 mr-1" />Show Less</>
                     ) : (
-                      <>
-                        <ChevronDown className="h-4 w-4 mr-1" />
-                        Show More
-                      </>
+                      <><ChevronDown className="h-4 w-4 mr-1" />Show More</>
                     )}
                   </button>
                 </Card>

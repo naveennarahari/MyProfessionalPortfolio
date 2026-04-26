@@ -8,6 +8,13 @@ const Hero = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleDownloadResume = () => {
+    const link = document.createElement('a');
+    link.href = personalInfo.resumeUrl || '/resume.pdf';
+    link.download = 'Naveen_Narahari_Resume.pdf';
+    link.click();
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 px-6 py-20">
       <div className="max-w-6xl w-full">
@@ -32,17 +39,18 @@ const Hero = () => {
             </div>
 
             <div className="flex flex-wrap gap-4">
-              <Button 
+              <Button
                 onClick={scrollToContact}
-                size="lg" 
+                size="lg"
                 className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 Get In Touch
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="lg"
+                onClick={handleDownloadResume}
                 className="border-2 border-slate-300 text-slate-700 hover:bg-slate-100 px-8 py-6 text-lg rounded-lg transition-all duration-300"
               >
                 <Download className="mr-2 h-5 w-5" />
@@ -54,8 +62,23 @@ const Hero = () => {
           {/* Right Content - Profile Image */}
           <div className="flex justify-center">
             <div className="relative">
-              <div className="w-80 h-80 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 shadow-2xl flex items-center justify-center">
-                <div className="text-white text-8xl font-bold">
+              <div className="w-80 h-80 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 shadow-2xl flex items-center justify-center overflow-hidden">
+                {personalInfo.profileImage ? (
+                  <img
+                    src={personalInfo.profileImage}
+                    alt={personalInfo.name}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fall back to initials if image fails to load
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
+                  />
+                ) : null}
+                <div
+                  className="text-white text-8xl font-bold w-full h-full items-center justify-center"
+                  style={{ display: personalInfo.profileImage ? 'none' : 'flex' }}
+                >
                   {personalInfo.name.split(' ').map(n => n[0]).join('')}
                 </div>
               </div>

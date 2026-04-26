@@ -4,67 +4,38 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
-import { Mail, Phone, Linkedin, MapPin, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Mail, Phone, Linkedin, MapPin, Send, CheckCircle2, AlertCircle, Twitter } from 'lucide-react';
 import { personalInfo } from '../mock';
 
-// Formspree endpoint — replace XXXXXXXX with your Formspree form ID
-// Get it free at https://formspree.io (sign up → New Form → copy the ID)
-const FORMSPREE_ID = process.env.REACT_APP_FORMSPREE_ID || 'xjgjlqle';
+const FORMSPREE_ID = process.env.REACT_APP_FORMSPREE_ID || 'XXXXXXXX';
 const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState({ type: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setStatus({ type: '', message: '' });
-
     try {
       const response = await fetch(FORMSPREE_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          _subject: formData.subject,
-          message: formData.message
-        })
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name: formData.name, email: formData.email, _subject: formData.subject, message: formData.message })
       });
-
       if (response.ok) {
-        setStatus({
-          type: 'success',
-          message: 'Thank you for your message! I will get back to you soon.'
-        });
+        setStatus({ type: 'success', message: 'Thank you for your message! I will get back to you soon.' });
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
         const data = await response.json();
         throw new Error(data?.error || 'Submission failed');
       }
     } catch (error) {
-      console.error('Error submitting contact form:', error);
-      setStatus({
-        type: 'error',
-        message: 'Failed to send message. Please email me directly at ' + personalInfo.email
-      });
+      setStatus({ type: 'error', message: 'Failed to send message. Please email me directly at ' + personalInfo.email });
     } finally {
       setIsSubmitting(false);
     }
@@ -113,6 +84,15 @@ const Contact = () => {
                     <div className="text-sm text-slate-600">Connect on LinkedIn</div>
                   </div>
                 </a>
+                <a href={personalInfo.twitter} target="_blank" rel="noopener noreferrer" className="flex items-start group hover:bg-blue-50 p-3 rounded-lg transition-colors duration-200">
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0 group-hover:bg-blue-200 transition-colors duration-200">
+                    <Twitter className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-slate-900">X (Twitter)</div>
+                    <div className="text-sm text-slate-600">Follow on X</div>
+                  </div>
+                </a>
                 <div className="flex items-start p-3">
                   <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
                     <MapPin className="h-5 w-5 text-blue-600" />
@@ -127,10 +107,12 @@ const Contact = () => {
             <Card className="p-6 bg-gradient-to-br from-blue-50 to-slate-50 border-2 border-blue-100 rounded-xl">
               <h4 className="font-semibold text-slate-900 mb-3">Open to Opportunities</h4>
               <ul className="space-y-2 text-sm text-slate-700">
-                <li className="flex items-start"><CheckCircle2 className="h-4 w-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" /><span>Board/Advisory Roles</span></li>
-                <li className="flex items-start"><CheckCircle2 className="h-4 w-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" /><span>Senior Leadership Positions</span></li>
-                <li className="flex items-start"><CheckCircle2 className="h-4 w-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" /><span>Pre-IPO Fintech Consulting</span></li>
-                <li className="flex items-start"><CheckCircle2 className="h-4 w-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" /><span>Tech Governance & Compliance</span></li>
+                {['Board/Advisory Roles', 'Senior Leadership Positions', 'Pre-IPO Fintech Consulting', 'Tech Governance & Compliance'].map((item) => (
+                  <li key={item} className="flex items-start">
+                    <CheckCircle2 className="h-4 w-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
             </Card>
           </div>
