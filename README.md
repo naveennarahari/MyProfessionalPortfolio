@@ -11,7 +11,7 @@ Personal portfolio website for **Naveen Narahari**, Engineering Manager and Arch
 
 | Platform | URL | Purpose |
 |---|---|---|
-| **Netlify** (primary) | https://naveenprofessionalportfolio.netlify.app | Main live site |
+| **Netlify** (primary) | https://naraharinaveen.netlify.app/ | Main live site |
 | **GitHub Pages** (backup) | https://naveennarahari.github.io/MyProfessionalPortfolio | Backup / redundancy |
 
 Both deployments run in parallel on every push to `main` via GitHub Actions.
